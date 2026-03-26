@@ -1,0 +1,19 @@
+services:
+  skills-rce:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: skills-rce:local
+    container_name: skills-rce
+    ports:
+      - "${RCE_PORT:-7891}:7891"
+    environment:
+      RCE_PORT: 7891
+      RCE_CACHE_DIR: /cache/skills
+      RCE_AUTH_TOKEN: "${RCE_AUTH_TOKEN:-}"
+    volumes:
+      - skills-rce-cache:/cache/skills
+    restart: unless-stopped
+
+volumes:
+  skills-rce-cache:
